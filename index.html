@@ -37,53 +37,84 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 @media(max-width:768px){nav{padding:18px 20px;}.nav-links{gap:16px;}.nav-links a:not(.nav-cta){display:none;}}
 
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:120px 40px 80px;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 30% 40%,rgba(90,152,112,0.07),transparent);pointer-events:none;}
-.hero-inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;width:100%;position:relative;z-index:1;gap:40px;}
-.hero-text{flex:1;max-width:540px;}
+
+/* Layer 1: Phone background */
+.hero-phone-bg{
+  position:absolute;
+  right:10%;top:50%;transform:translateY(-50%);
+  z-index:1;
+  opacity:0;animation:phoneFadeIn 2s ease 0.8s forwards;
+}
+@keyframes phoneFadeIn{from{opacity:0;transform:translateY(-48%) scale(0.95);}to{opacity:0.6;transform:translateY(-50%) scale(1);}}
+.hero-phone-frame{
+  width:260px;height:540px;
+  background:#0a0a0a;border-radius:40px;
+  border:3px solid rgba(255,255,255,0.08);
+  padding:14px 12px;position:relative;overflow:hidden;
+  box-shadow:0 0 120px rgba(90,152,112,0.1),0 0 40px rgba(0,0,0,0.5);
+}
+.hpf-notch{width:90px;height:26px;background:#0a0a0a;border-radius:0 0 18px 18px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;}
+.hpf-screen{width:100%;height:100%;background:#111;border-radius:28px;overflow:hidden;}
+.hpf-screen video{width:100%;height:100%;object-fit:cover;}
+
+/* Layer 2: Mist */
+.hero-mist{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;}
+.mist-layer{
+  position:absolute;width:140%;height:100%;
+  background:radial-gradient(ellipse at center,rgba(6,14,8,0.7) 0%,transparent 70%);
+  opacity:0;
+}
+.mist-1{
+  left:-20%;top:-10%;
+  background:radial-gradient(ellipse 80% 50% at 40% 50%,rgba(6,14,8,0.85),transparent 65%);
+  animation:mistDrift1 12s ease-in-out infinite, mistFadeIn 2s ease 0.3s forwards;
+}
+.mist-2{
+  left:-10%;top:20%;
+  background:radial-gradient(ellipse 60% 40% at 55% 60%,rgba(10,26,14,0.7),transparent 60%);
+  animation:mistDrift2 16s ease-in-out infinite, mistFadeIn 2s ease 0.6s forwards;
+}
+.mist-3{
+  left:0%;top:-20%;
+  background:radial-gradient(ellipse 70% 60% at 35% 40%,rgba(6,14,8,0.6),transparent 55%);
+  animation:mistDrift3 20s ease-in-out infinite, mistFadeIn 2.5s ease 0.4s forwards;
+}
+@keyframes mistFadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes mistDrift1{
+  0%,100%{transform:translate(0,0) scale(1);}
+  25%{transform:translate(3%,2%) scale(1.03);}
+  50%{transform:translate(-2%,-1%) scale(0.98);}
+  75%{transform:translate(1%,-2%) scale(1.02);}
+}
+@keyframes mistDrift2{
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(-4%,3%) scale(1.05);}
+  66%{transform:translate(3%,-2%) scale(0.97);}
+}
+@keyframes mistDrift3{
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(5%,3%) scale(1.04);}
+}
+
+/* Layer 3: Content */
+.hero-content{text-align:center;position:relative;z-index:3;max-width:720px;}
 .hero-arc{margin-bottom:28px;opacity:0;animation:fadeUp 1s ease 0.1s forwards;}
-.hero h1{font-size:clamp(32px,4.5vw,56px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:20px;opacity:0;animation:fadeUp 1s ease 0.35s forwards;}
+.hero h1{font-size:clamp(36px,5.5vw,64px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:24px;opacity:0;animation:fadeUp 1s ease 0.35s forwards;}
 .hero h1 em{color:var(--green-bright);font-style:normal;}
-.hero-sub{font-size:16px;font-weight:300;line-height:1.7;color:var(--text-secondary);max-width:420px;margin:0 0 36px;opacity:0;animation:fadeUp 1s ease 0.55s forwards;}
+.hero-sub{font-size:17px;font-weight:300;line-height:1.7;color:var(--text-secondary);max-width:480px;margin:0 auto 44px;opacity:0;animation:fadeUp 1s ease 0.55s forwards;}
 .hero-btn{display:inline-block;font-size:14px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:14px 40px;border-radius:28px;text-decoration:none;transition:all 0.3s;opacity:0;animation:fadeUp 1s ease 0.7s forwards;}
 .hero-btn:hover{background:#fff;transform:translateY(-1px);}
 
-/* HERO HAND + PHONE */
-.hero-phone-wrap{flex:0 0 auto;position:relative;opacity:0;animation:phoneSlideIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;}
-@keyframes phoneSlideIn{from{opacity:0;transform:translateX(80px);}to{opacity:1;transform:translateX(0);}}
-.hero-hand{position:relative;width:320px;min-height:400px;}
-.hand-img{width:100%;height:auto;display:block;position:relative;z-index:3;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.5));}
-.hand-video-overlay{
-  position:absolute;
-  top:4%;left:13%;
-  width:41%;height:60%;
-  overflow:hidden;
-  border-radius:18px;
-  z-index:2;
-}
-.hand-video-overlay video{width:100%;height:100%;object-fit:cover;display:block;}
-
-/* Background glow */
-.hero-phone-wrap::before{
-  content:'';position:absolute;
-  width:350px;height:350px;
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(90,152,112,0.1),transparent 70%);
-  pointer-events:none;z-index:0;
-}
-
-@media(max-width:768px){
-  .hero-inner{flex-direction:column;text-align:center;}
-  .hero-text{max-width:100%;}
-  .hero-sub{margin:0 auto 36px;}
-  .hero-phone-wrap{margin-top:20px;}
-  .hero-hand{width:240px;margin:0 auto;}
-  @keyframes phoneSlideIn{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
-}
-
-.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s ease 1s forwards;}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s ease 1s forwards;z-index:3;}
 .hero-scroll span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);font-weight:400;}
 .hero-scroll .line{width:1px;height:28px;background:linear-gradient(180deg,var(--green-mid),transparent);animation:scrollPulse 2s ease infinite;}
 @keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.6);}50%{opacity:1;transform:scaleY(1);}}
+
+@media(max-width:768px){
+  .hero-phone-bg{right:50%;transform:translate(50%,-50%);}
+  .hero-phone-frame{width:200px;height:420px;border-radius:34px;}
+  .hpf-screen{border-radius:24px;}
+}}
 
 section{padding:100px 0;position:relative;}
 .section-tag{font-size:12px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px;}
@@ -256,23 +287,29 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
 </nav>
 
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-arc"><svg width="90" height="72"><use href="#arc-icon"/></svg></div>
-      <h1>We're creators.<br>We <em>elevate</em> brands<br>through storytelling.</h1>
-      <p class="hero-sub">Nine years behind the camera, in the edit, and on the ground. We create content that speaks to your customers.</p>
-      <a href="#contact" class="hero-btn">Work With Us</a>
-    </div>
-    <div class="hero-phone-wrap">
-      <div class="hero-hand">
-        <img src="hand-phone.png" alt="" class="hand-img">
-        <div class="hand-video-overlay">
-          <video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture>
-            <source src="clip1.mp4" type="video/mp4">
-          </video>
-        </div>
+  <!-- Layer 1: Phone (back) -->
+  <div class="hero-phone-bg">
+    <div class="hero-phone-frame">
+      <div class="hpf-notch"></div>
+      <div class="hpf-screen">
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture>
+          <source src="hero-clip.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
+  </div>
+  <!-- Layer 2: Mist (middle) -->
+  <div class="hero-mist">
+    <div class="mist-layer mist-1"></div>
+    <div class="mist-layer mist-2"></div>
+    <div class="mist-layer mist-3"></div>
+  </div>
+  <!-- Layer 3: Text (front) -->
+  <div class="hero-content">
+    <div class="hero-arc"><svg width="90" height="72"><use href="#arc-icon"/></svg></div>
+    <h1>We\'re creators.<br>We <em>elevate</em> brands<br>through storytelling.</h1>
+    <p class="hero-sub">Nine years behind the camera, in the edit, and on the ground. We create content that speaks to your customers.</p>
+    <a href="#contact" class="hero-btn">Work With Us</a>
   </div>
   <div class="hero-scroll"><span>Scroll</span><div class="line"></div></div>
 </section>
