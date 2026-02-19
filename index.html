@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arc Media — Content That Elevates</title>
+<style>
+:root {
+  --bg: #060e08;
+  --bg-card: #0a1a0e;
+  --green-bright: #a8d8b0;
+  --green-mid: #5a9870;
+  --text-primary: #e8eeea;
+  --text-secondary: rgba(200,220,205,0.55);
+  --text-faint: rgba(160,200,170,0.25);
+  --rule: rgba(160,200,170,0.1);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text-primary);font-family:var(--font);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--green-mid);border-radius:3px;}
+.container{max-width:1200px;margin:0 auto;padding:0 40px;}
+@media(max-width:768px){.container{padding:0 20px;}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,var(--bg) 40%,transparent);transition:all 0.4s;}
+nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--rule);padding:14px 40px;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo-text{font-size:17px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-primary);}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{font-size:13px;font-weight:400;color:var(--text-secondary);text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover{color:var(--green-bright);}
+.nav-cta{font-size:13px!important;font-weight:500!important;color:var(--bg)!important;background:var(--green-bright);padding:8px 22px;border-radius:20px;transition:all 0.3s!important;}
+.nav-cta:hover{background:#fff;color:var(--bg)!important;}
+@media(max-width:768px){nav{padding:18px 20px;}.nav-links{gap:16px;}.nav-links a:not(.nav-cta){display:none;}}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:120px 40px 80px;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 35%,rgba(90,152,112,0.07),transparent);pointer-events:none;}
+.hero-content{text-align:center;position:relative;z-index:1;max-width:820px;}
+.hero-arc{margin-bottom:36px;opacity:0;animation:fadeUp 1s ease 0.1s forwards;}
+.hero h1{font-size:clamp(36px,5.5vw,64px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:24px;opacity:0;animation:fadeUp 1s ease 0.35s forwards;}
+.hero h1 em{color:var(--green-bright);font-style:normal;}
+.hero-sub{font-size:17px;font-weight:300;line-height:1.7;color:var(--text-secondary);max-width:480px;margin:0 auto 44px;opacity:0;animation:fadeUp 1s ease 0.55s forwards;}
+.hero-btn{display:inline-block;font-size:14px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:14px 40px;border-radius:28px;text-decoration:none;transition:all 0.3s;opacity:0;animation:fadeUp 1s ease 0.7s forwards;}
+.hero-btn:hover{background:#fff;transform:translateY(-1px);}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s ease 1s forwards;}
+.hero-scroll span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);font-weight:400;}
+.hero-scroll .line{width:1px;height:28px;background:linear-gradient(180deg,var(--green-mid),transparent);animation:scrollPulse 2s ease infinite;}
+@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.6);}50%{opacity:1;transform:scaleY(1);}}
+
+section{padding:100px 0;position:relative;}
+.section-tag{font-size:12px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px;}
+.section-heading{font-size:clamp(28px,3.8vw,44px);font-weight:600;line-height:1.15;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:16px;}
+.section-heading em{color:var(--green-bright);font-style:normal;}
+.section-body{font-size:16px;font-weight:300;line-height:1.75;color:var(--text-secondary);max-width:520px;}
+
+.image-break{width:100%;height:36vh;min-height:240px;overflow:hidden;position:relative;}
+.image-break img{width:100%;height:100%;object-fit:cover;filter:brightness(0.7) saturate(0.9);}
+.image-break::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,transparent 18%,transparent 82%,var(--bg) 100%);}
+
+.stats{border-top:1px solid var(--rule);padding:80px 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);}
+@media(max-width:600px){.stats-grid{grid-template-columns:1fr;}}
+.stat{background:var(--bg);text-align:center;padding:48px 24px;}
+.stat-number{font-size:clamp(36px,5vw,56px);font-weight:600;color:var(--green-bright);letter-spacing:-0.02em;line-height:1;}
+.stat-label{font-size:13px;font-weight:400;color:var(--text-secondary);margin-top:8px;letter-spacing:1px;}
+
+.offering{border-top:1px solid var(--rule);}
+.offering-top{text-align:center;max-width:580px;margin:0 auto 64px;}
+.offering-top .section-body{margin:0 auto;}
+
+.shortform{margin-bottom:100px;}
+.shortform-label{text-align:center;margin-bottom:36px;}
+.shortform-label p{font-size:13px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);}
+.phone-row{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;}
+@media(max-width:600px){.phone-row{gap:20px;}}
+.phone-card{text-decoration:none;text-align:center;transition:transform 0.4s ease;display:block;}
+.phone-card:hover{transform:translateY(-8px);}
+.phone-frame{
+  width:200px;height:420px;background:#111;border-radius:32px;
+  border:3px solid #2a2a2a;padding:12px 10px;position:relative;overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);margin:0 auto;
+}
+.phone-notch{width:80px;height:24px;background:#111;border-radius:0 0 16px 16px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;}
+.phone-screen{width:100%;height:100%;background:#1a1a1a;border-radius:22px;overflow:hidden;position:relative;}
+.phone-screen video{width:100%;height:100%;object-fit:cover;}
+.phone-title{font-size:15px;font-weight:600;color:var(--text-primary);margin-top:20px;}
+.phone-stat{font-size:12px;font-weight:400;color:var(--text-secondary);margin-top:4px;}
+@media(max-width:600px){
+  .phone-frame{width:155px;height:328px;border-radius:26px;padding:10px 8px;}
+  .phone-notch{width:60px;height:20px;border-radius:0 0 12px 12px;}
+  .phone-screen{border-radius:18px;}
+}
+
+.longform-label{text-align:center;margin-bottom:36px;}
+.longform-label p{font-size:13px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);}
+.laptop-frame{max-width:860px;margin:0 auto;}
+.laptop-screen{background:#111;border-radius:12px 12px 0 0;border:3px solid #2a2a2a;border-bottom:none;padding:10px 10px 0;box-shadow:0 -10px 60px rgba(0,0,0,0.3);}
+.laptop-camera{width:6px;height:6px;border-radius:50%;background:#222;margin:0 auto 8px;}
+.laptop-display{width:100%;aspect-ratio:16/9;background:#1a1a1a;border-radius:6px 6px 0 0;overflow:hidden;}
+.laptop-display video{width:100%;height:100%;object-fit:cover;}
+.laptop-placeholder{
+  width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  font-size:12px;font-weight:400;color:var(--text-faint);letter-spacing:2px;text-transform:uppercase;
+  background:linear-gradient(160deg,rgba(90,152,112,0.06),rgba(90,152,112,0.02));
+}
+.laptop-placeholder svg{width:36px;height:36px;opacity:0.3;}
+.laptop-hinge{max-width:920px;margin:0 auto;height:6px;background:linear-gradient(180deg,#2a2a2a,#1a1a1a);border-radius:0 0 2px 2px;}
+.laptop-base{max-width:960px;margin:0 auto;height:14px;background:linear-gradient(180deg,#1a1a1a,#111);border-radius:0 0 4px 4px;position:relative;}
+.laptop-base::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:140px;height:4px;background:#222;border-radius:0 0 4px 4px;}
+
+.portfolio{border-top:1px solid var(--rule);}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:4px;}
+@media(max-width:768px){.portfolio-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:500px){.portfolio-grid{grid-template-columns:1fr;}}
+.portfolio-item{overflow:hidden;position:relative;aspect-ratio:4/5;}
+.portfolio-item.wide{grid-column:span 2;aspect-ratio:16/9;}
+.portfolio-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease,filter 0.6s ease;filter:brightness(0.85) saturate(0.9);}
+.portfolio-item:hover img{transform:scale(1.04);filter:brightness(1) saturate(1);}
+
+.cases{border-top:1px solid var(--rule);}
+.cases-header{text-align:center;max-width:600px;margin:0 auto 40px;}
+.cases-tabs{display:flex;justify-content:center;gap:4px;margin-bottom:40px;}
+.cases-tab{font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);background:transparent;border:none;border-bottom:2px solid transparent;padding:8px 20px;cursor:pointer;transition:all 0.3s;font-family:var(--font);}
+.cases-tab:hover{color:var(--text-secondary);}
+.cases-tab.active{color:var(--green-bright);border-bottom-color:var(--green-bright);}
+.cases-panel{display:none;}
+.cases-panel.active{display:block;}
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+.case-card{border:1px solid var(--rule);padding:36px 28px;background:var(--bg-card);transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden;}
+.case-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green-mid);opacity:0;transition:opacity 0.3s;}
+.case-card:hover{border-color:var(--green-mid);}
+.case-card:hover::before{opacity:1;}
+.case-label{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--green-mid);margin-bottom:10px;}
+.case-title{font-size:18px;font-weight:600;color:var(--text-primary);margin-bottom:6px;}
+.case-desc{font-size:13px;font-weight:300;line-height:1.6;color:var(--text-secondary);}
+
+.founders{border-top:1px solid var(--rule);}
+.founders-intro{text-align:center;max-width:620px;margin:0 auto 64px;}
+.founders-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+@media(max-width:768px){.founders-grid{grid-template-columns:1fr;}}
+.founder-card{position:relative;overflow:hidden;cursor:pointer;border-radius:12px;}
+.founder-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:brightness(0.85) saturate(0.9);transition:all 0.6s;}
+.founder-card:hover .founder-img{filter:brightness(0.95) saturate(1);transform:scale(1.02);}
+.founder-overlay{position:absolute;bottom:0;left:0;right:0;padding:36px 28px;background:linear-gradient(0deg,rgba(6,14,8,0.95) 0%,rgba(6,14,8,0.7) 55%,transparent);}
+.founder-name{font-size:18px;font-weight:600;letter-spacing:0.5px;color:var(--text-primary);margin-bottom:2px;}
+.founder-role{font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--text-secondary);margin-bottom:10px;}
+.founder-bio{font-size:14px;font-weight:300;line-height:1.7;color:var(--text-secondary);max-height:0;overflow:hidden;transition:max-height 0.6s ease,margin 0.4s ease;margin-top:0;}
+.founder-card.expanded .founder-bio{max-height:300px;margin-top:8px;}
+.founder-expand{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--green-mid);}
+.founder-card.expanded .founder-expand{display:none;}
+
+.also{border-top:1px solid var(--rule);text-align:center;padding:80px 0;}
+.also-heading{font-size:18px;font-weight:500;color:var(--text-primary);margin-bottom:8px;}
+.also-sub{font-size:14px;font-weight:300;color:var(--text-secondary);margin-bottom:28px;}
+.also-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+.also-link{font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--green-bright);border:1px solid var(--green-mid);padding:10px 28px;border-radius:24px;text-decoration:none;transition:all 0.3s;}
+.also-link:hover{background:var(--green-bright);color:var(--bg);}
+
+.cta-section{border-top:1px solid var(--rule);text-align:center;padding:120px 0;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(90,152,112,0.06),transparent);pointer-events:none;}
+.cta-btn{display:inline-block;font-size:15px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:16px 48px;border-radius:32px;text-decoration:none;transition:all 0.3s;}
+.cta-btn:hover{background:#fff;transform:translateY(-1px);}
+
+footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-content:space-between;align-items:center;}
+@media(max-width:768px){footer{flex-direction:column;gap:12px;text-align:center;}}
+.footer-logo{display:flex;align-items:center;gap:10px;}
+.footer-logo-text{font-size:14px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);}
+.footer-copy{font-size:12px;color:var(--text-faint);font-weight:300;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<svg style="display:none;">
+  <defs>
+    <symbol id="arc-icon" viewBox="0 0 90 72">
+      <path d="M4 66 Q45 4 86 66" stroke="url(#gM)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M16 66 Q45 18 74 66" stroke="url(#gS)" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <circle cx="45" cy="6.5" r="3.5" fill="url(#aG)"/>
+      <line x1="4" y1="66" x2="86" y2="66" stroke="rgba(160,200,170,0.12)" stroke-width="0.75"/>
+      <line x1="4" y1="62" x2="4" y2="70" stroke="url(#gM)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="86" y1="62" x2="86" y2="70" stroke="url(#gM)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="45" y1="64" x2="45" y2="68" stroke="rgba(160,200,170,0.3)" stroke-width="1" stroke-linecap="round"/>
+      <linearGradient id="gM" x1="4" y1="66" x2="86" y2="66" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#4a9060" stop-opacity="0.4"/>
+        <stop offset="50%" stop-color="#a8d8b0"/>
+        <stop offset="100%" stop-color="#4a9060" stop-opacity="0.4"/>
+      </linearGradient>
+      <linearGradient id="gS" x1="16" y1="66" x2="74" y2="66" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#4a9060" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#4a9060" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#4a9060" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="aG" cx="50%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#d0f0d8"/>
+        <stop offset="100%" stop-color="#5a9870"/>
+      </radialGradient>
+    </symbol>
+    <symbol id="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="5 3 19 12 5 21 5 3" fill="rgba(160,200,170,0.15)" stroke="rgba(160,200,170,0.3)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg width="32" height="26"><use href="#arc-icon"/></svg>
+    <span class="nav-logo-text">Arc Media</span>
+  </a>
+  <div class="nav-links">
+    <a href="#cases">Cases</a>
+    <a href="#founders">Founders</a>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-arc"><svg width="110" height="88"><use href="#arc-icon"/></svg></div>
+    <h1>We're creators.<br>We <em>elevate</em> brands<br>through storytelling.</h1>
+    <p class="hero-sub">Nine years behind the camera, in the edit, and on the ground. We create content that speaks to your customers.</p>
+    <a href="#contact" class="hero-btn">Work With Us</a>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<div class="image-break reveal">
+  <img src="images/hero-banner.jpg" alt="On the grid at Formula 1">
+</div>
+
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal"><div class="stat-number">9+</div><div class="stat-label">Years of experience</div></div>
+      <div class="stat reveal" style="transition-delay:0.1s;"><div class="stat-number">2</div><div class="stat-label">Founders who do the work</div></div>
+      <div class="stat reveal" style="transition-delay:0.2s;"><div class="stat-number">&infin;</div><div class="stat-label">Stories to tell</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="offering">
+  <div class="container">
+    <div class="offering-top reveal">
+      <p class="section-tag">What We Do</p>
+      <h2 class="section-heading">We take over your <em>content.</em><br>You run your business.</h2>
+      <p class="section-body">Strategy, production, editing, publishing. From first concept to final cut.</p>
+    </div>
+
+    <div class="shortform">
+      <div class="shortform-label reveal"><p>Short-Form</p></div>
+      <div class="phone-row">
+        <a href="#cases" class="phone-card reveal">
+          <div class="phone-frame"><div class="phone-notch"></div>
+            <div class="phone-screen"><video src="videos/clip1.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+          </div>
+          <p class="phone-title">Project Title</p>
+          <p class="phone-stat">Sports &middot; 2.4M views</p>
+        </a>
+        <a href="#cases" class="phone-card reveal" style="transition-delay:0.12s;">
+          <div class="phone-frame"><div class="phone-notch"></div>
+            <div class="phone-screen"><video src="videos/clip2.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+          </div>
+          <p class="phone-title">Project Title</p>
+          <p class="phone-stat">FMCG &middot; 1.8M views</p>
+        </a>
+        <a href="#cases" class="phone-card reveal" style="transition-delay:0.24s;">
+          <div class="phone-frame"><div class="phone-notch"></div>
+            <div class="phone-screen"><video src="videos/clip3.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+          </div>
+          <p class="phone-title">Project Title</p>
+          <p class="phone-stat">Tech &middot; 960K views</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="longform reveal">
+      <div class="longform-label"><p>Long-Form</p></div>
+      <div class="laptop-frame">
+        <div class="laptop-screen">
+          <div class="laptop-camera"></div>
+          <div class="laptop-display">
+            <!-- Replace with: <video src="videos/showreel.mp4" autoplay muted loop playsinline preload="auto"></video> -->
+            <div class="laptop-placeholder"><svg><use href="#play-icon"/></svg>Showreel &mdash; add your video as videos/showreel.mp4</div>
+          </div>
+        </div>
+        <div class="laptop-hinge"></div>
+        <div class="laptop-base"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio">
+  <div class="container">
+    <div class="portfolio-grid">
+      <div class="portfolio-item reveal"><img src="images/formula-e.jpg" alt="Formula E night race"></div>
+      <div class="portfolio-item reveal" style="transition-delay:0.08s;"><img src="images/winter-sports.jpg" alt="Winter sports"></div>
+      <div class="portfolio-item reveal" style="transition-delay:0.16s;"><img src="images/behind-the-scenes.jpg" alt="Behind the scenes"></div>
+      <div class="portfolio-item wide reveal" style="transition-delay:0.24s;"><img src="images/nascar.jpg" alt="NASCAR race coverage"></div>
+      <div class="portfolio-item reveal" style="transition-delay:0.32s;"><img src="images/studio.jpg" alt="Studio production"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cases" id="cases">
+  <div class="container">
+    <div class="cases-header reveal">
+      <p class="section-tag">Cases</p>
+      <h2 class="section-heading">Who we've <em>worked with</em></h2>
+    </div>
+    <div class="cases-tabs reveal" style="transition-delay:0.1s;">
+      <button class="cases-tab active" data-tab="sports">Sports</button>
+      <button class="cases-tab" data-tab="fmcg">FMCG</button>
+      <button class="cases-tab" data-tab="tech">Tech</button>
+    </div>
+    <div class="cases-panel active" id="panel-sports">
+      <div class="cases-grid">
+        <div class="case-card"><p class="case-label">Motorsport</p><p class="case-title">Coming soon</p><p class="case-desc">Content for a global motorsport brand.</p></div>
+        <div class="case-card"><p class="case-label">Athletics</p><p class="case-title">Coming soon</p><p class="case-desc">Event coverage and athlete storytelling.</p></div>
+        <div class="case-card"><p class="case-label">Winter Sports</p><p class="case-title">Coming soon</p><p class="case-desc">Brand content in extreme environments.</p></div>
+      </div>
+    </div>
+    <div class="cases-panel" id="panel-fmcg">
+      <div class="cases-grid">
+        <div class="case-card"><p class="case-label">Food &amp; Beverage</p><p class="case-title">Coming soon</p><p class="case-desc">Social-first content for consumer brands.</p></div>
+        <div class="case-card"><p class="case-label">Lifestyle</p><p class="case-title">Coming soon</p><p class="case-desc">Brand storytelling for everyday products.</p></div>
+      </div>
+    </div>
+    <div class="cases-panel" id="panel-tech">
+      <div class="cases-grid">
+        <div class="case-card"><p class="case-label">SaaS</p><p class="case-title">Coming soon</p><p class="case-desc">Making complex tech simple through content.</p></div>
+        <div class="case-card"><p class="case-label">Hardware</p><p class="case-title">Coming soon</p><p class="case-desc">Product launches and brand narratives.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="founders" id="founders">
+  <div class="container">
+    <div class="founders-intro reveal">
+      <p class="section-tag">The Founders</p>
+      <h2 class="section-heading">Nine years creating.<br><em>Two people</em> behind it all.</h2>
+    </div>
+    <div class="founders-grid">
+      <div class="founder-card reveal" onclick="this.classList.toggle('expanded')">
+        <img src="images/liam.jpg" alt="Liam Kalevi" class="founder-img">
+        <div class="founder-overlay">
+          <p class="founder-name">Liam Kalevi</p>
+          <p class="founder-role">Co-Founder</p>
+          <p class="founder-expand">&darr; Read more</p>
+          <p class="founder-bio">Six years in content. Interviewed the biggest names in Formula 1. Worked with Red Bull, NASCAR, and WRC. Knows how to make complex, high-tech industries feel accessible to new audiences.</p>
+        </div>
+      </div>
+      <div class="founder-card reveal" style="transition-delay:0.15s;" onclick="this.classList.toggle('expanded')">
+        <img src="images/rezdar.jpg" alt="Rezdar Bakri" class="founder-img">
+        <div class="founder-overlay">
+          <p class="founder-name">Rezdar Bakri</p>
+          <p class="founder-role">Co-Founder</p>
+          <p class="founder-expand">&darr; Read more</p>
+          <p class="founder-bio">Has shot content across the globe &mdash; Papua New Guinea, Iraq, Uganda, the Amazon. Worked with brands across industries including fitness. Cinematic eye, zero limits on location.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="also">
+  <div class="container reveal">
+    <p class="also-heading">We also build digital products.</p>
+    <p class="also-sub">Need a website or an app? We do that too.</p>
+    <div class="also-links">
+      <a href="web-design.html" class="also-link">Web Design &rarr;</a>
+      <a href="app-development.html" class="also-link">App Development &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div style="margin-bottom:28px;"><svg width="56" height="46"><use href="#arc-icon"/></svg></div>
+      <h2 class="section-heading">Let's build your <em>story</em></h2>
+      <p class="section-body" style="margin:0 auto 40px;text-align:center;">Tell us about your brand. We'll take it from there.</p>
+      <a href="mailto:hello@arcmedia.se" class="cta-btn">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <svg width="28" height="22"><use href="#arc-icon"/></svg>
+    <span class="footer-logo-text">Arc Media</span>
+  </div>
+  <p class="footer-copy">&copy; 2026 Arc Media. All rights reserved.</p>
+</footer>
+
+<script>
+const nav=document.getElementById("nav");
+window.addEventListener("scroll",()=>{nav.classList.toggle("scrolled",window.scrollY>60);});
+const reveals=document.querySelectorAll(".reveal");
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible");});
+},{threshold:0.08,rootMargin:"0px 0px -20px 0px"});
+reveals.forEach(el=>observer.observe(el));
+document.querySelectorAll(".cases-tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".cases-tab").forEach(t=>t.classList.remove("active"));
+    document.querySelectorAll(".cases-panel").forEach(p=>p.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById("panel-"+tab.dataset.tab).classList.add("active");
+  });
+});
+</script>
+</body>
+</html>
