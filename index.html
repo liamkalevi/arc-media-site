@@ -41,13 +41,13 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 /* Layer 1: Phone background */
 .hero-phone-bg{
   position:absolute;
-  left:55%;top:50%;transform:translateY(-50%) rotate(-6deg);
+  left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);
   z-index:2;
   opacity:0;animation:phoneFadeIn 2s ease 0.8s forwards;
 }
-@keyframes phoneFadeIn{from{opacity:0;transform:translateY(-48%) rotate(-6deg) scale(0.95);}to{opacity:0.55;transform:translateY(-50%) rotate(-6deg) scale(1);}}
+@keyframes phoneFadeIn{from{opacity:0;transform:translate(-50%,-48%) rotate(-8deg) scale(0.9);}to{opacity:0.5;transform:translate(-50%,-50%) rotate(-8deg) scale(1);}}
 .hero-phone-frame{
-  width:300px;height:620px;
+  width:380px;height:780px;
   background:#0a0a0a;border-radius:40px;
   border:3px solid rgba(255,255,255,0.08);
   padding:14px 12px;position:relative;overflow:hidden;
@@ -111,8 +111,8 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 @keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.6);}50%{opacity:1;transform:scaleY(1);}}
 
 @media(max-width:768px){
-  .hero-phone-bg{left:50%;transform:translate(-50%,-50%) rotate(-6deg);}
-  .hero-phone-frame{width:220px;height:460px;border-radius:34px;}
+  .hero-phone-bg{left:50%;transform:translate(-50%,-50%) rotate(-8deg);}
+  .hero-phone-frame{width:260px;height:540px;border-radius:38px;}
   .hpf-screen{border-radius:24px;}
 }}
 
