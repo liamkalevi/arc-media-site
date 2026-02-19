@@ -41,13 +41,13 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 /* Layer 1: Phone background */
 .hero-phone-bg{
   position:absolute;
-  right:10%;top:50%;transform:translateY(-50%);
-  z-index:1;
+  left:55%;top:50%;transform:translateY(-50%) rotate(-6deg);
+  z-index:2;
   opacity:0;animation:phoneFadeIn 2s ease 0.8s forwards;
 }
-@keyframes phoneFadeIn{from{opacity:0;transform:translateY(-48%) scale(0.95);}to{opacity:0.6;transform:translateY(-50%) scale(1);}}
+@keyframes phoneFadeIn{from{opacity:0;transform:translateY(-48%) rotate(-6deg) scale(0.95);}to{opacity:0.55;transform:translateY(-50%) rotate(-6deg) scale(1);}}
 .hero-phone-frame{
-  width:260px;height:540px;
+  width:300px;height:620px;
   background:#0a0a0a;border-radius:40px;
   border:3px solid rgba(255,255,255,0.08);
   padding:14px 12px;position:relative;overflow:hidden;
@@ -97,7 +97,7 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 }
 
 /* Layer 3: Content */
-.hero-content{text-align:center;position:relative;z-index:3;max-width:720px;}
+.hero-content{text-align:center;position:relative;z-index:4;max-width:720px;}
 .hero-arc{margin-bottom:28px;opacity:0;animation:fadeUp 1s ease 0.1s forwards;}
 .hero h1{font-size:clamp(36px,5.5vw,64px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:24px;opacity:0;animation:fadeUp 1s ease 0.35s forwards;}
 .hero h1 em{color:var(--green-bright);font-style:normal;}
@@ -111,8 +111,8 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 @keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.6);}50%{opacity:1;transform:scaleY(1);}}
 
 @media(max-width:768px){
-  .hero-phone-bg{right:50%;transform:translate(50%,-50%);}
-  .hero-phone-frame{width:200px;height:420px;border-radius:34px;}
+  .hero-phone-bg{left:50%;transform:translate(-50%,-50%) rotate(-6deg);}
+  .hero-phone-frame{width:220px;height:460px;border-radius:34px;}
   .hpf-screen{border-radius:24px;}
 }}
 
@@ -307,7 +307,7 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
   <!-- Layer 3: Text (front) -->
   <div class="hero-content">
     <div class="hero-arc"><svg width="90" height="72"><use href="#arc-icon"/></svg></div>
-    <h1>We\'re creators.<br>We <em>elevate</em> brands<br>through storytelling.</h1>
+    <h1>We're creators.<br>We <em>elevate</em> brands<br>through storytelling.</h1>
     <p class="hero-sub">Nine years behind the camera, in the edit, and on the ground. We create content that speaks to your customers.</p>
     <a href="#contact" class="hero-btn">Work With Us</a>
   </div>
@@ -369,8 +369,7 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
         <div class="laptop-screen">
           <div class="laptop-camera"></div>
           <div class="laptop-display">
-            <!-- Replace with: <video src="showreel.mp4" autoplay muted loop playsinline preload="auto"></video> -->
-            <div class="laptop-placeholder"><svg><use href="#play-icon"/></svg>Showreel &mdash; add your video as showreel.mp4</div>
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="showreel.mp4" type="video/mp4"></video>
           </div>
         </div>
         <div class="laptop-hinge"></div>
