@@ -25,6 +25,20 @@ body{background:var(--bg);color:var(--text-primary);font-family:var(--font);font
 .container{max-width:1200px;margin:0 auto;padding:0 40px;}
 @media(max-width:768px){.container{padding:0 20px;}}
 
+/* PARTICLES */
+.particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.particle{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:var(--green-bright);opacity:0;
+  animation:particleFloat linear infinite;
+}
+@keyframes particleFloat{
+  0%{opacity:0;transform:translateY(0) scale(0.5);}
+  10%{opacity:0.15;}
+  90%{opacity:0.15;}
+  100%{opacity:0;transform:translateY(-100vh) scale(1);}
+}
+
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,var(--bg) 40%,transparent);transition:all 0.4s;}
 nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--rule);padding:14px 40px;}
@@ -39,37 +53,22 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:120px 40px 60px;overflow:hidden;}
-
-/* Horizontal phone behind text */
 .hero-phone-bg{
-  position:absolute;
-  top:50%;left:50%;
+  position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%) rotate(-6deg);
-  z-index:1;
-  opacity:0;animation:hphoneFadeIn 2s ease 0.6s forwards;
-  display:flex;align-items:flex-end;gap:0;
+  z-index:1;opacity:0;animation:hphoneFadeIn 2s ease 0.6s forwards;
 }
-.hand-svg{width:80px;flex-shrink:0;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.4));opacity:0.85;}
-.hand-left{transform:translateX(20px) translateY(30px);}
-.hand-right{transform:translateX(-20px) translateY(30px) scaleX(1);}
 @keyframes hphoneFadeIn{from{opacity:0;transform:translate(-50%,-48%) rotate(-6deg) scale(0.92);}to{opacity:0.45;transform:translate(-50%,-50%) rotate(-6deg) scale(1);}}
 .hphone-frame{
-  width:85vw;max-width:900px;
-  aspect-ratio:19.5/9;
+  width:85vw;max-width:900px;aspect-ratio:19.5/9;
   background:#0a0a0a;border-radius:28px;
   border:3px solid rgba(255,255,255,0.08);
   padding:8px;position:relative;overflow:hidden;
   box-shadow:0 30px 100px rgba(0,0,0,0.5),0 0 80px rgba(90,152,112,0.06);
 }
-.hphone-notch{
-  width:24px;height:70px;background:#0a0a0a;
-  border-radius:0 12px 12px 0;
-  position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:2;
-}
+.hphone-notch{width:24px;height:70px;background:#0a0a0a;border-radius:0 12px 12px 0;position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:2;}
 .hphone-screen{width:100%;height:100%;background:#111;border-radius:20px;overflow:hidden;}
 .hphone-screen video{width:100%;height:100%;object-fit:cover;display:block;}
-
-/* Text in front */
 .hero-text{text-align:center;position:relative;z-index:3;max-width:720px;}
 .hero-arc{margin-bottom:24px;opacity:0;animation:fadeUp 1s ease 0.1s forwards;}
 .hero h1{font-size:clamp(42px,7vw,88px);font-weight:700;line-height:1.05;letter-spacing:-0.03em;color:var(--text-primary);margin-bottom:20px;opacity:0;animation:fadeUp 1s ease 0.3s forwards;text-shadow:0 4px 40px rgba(6,14,8,0.8);}
@@ -77,41 +76,36 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 .hero-sub{font-size:16px;font-weight:300;line-height:1.7;color:var(--text-secondary);max-width:400px;margin:0 auto 32px;opacity:0;animation:fadeUp 1s ease 0.5s forwards;text-shadow:0 2px 20px rgba(6,14,8,0.9);}
 .hero-btn{display:inline-block;font-size:14px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:14px 40px;border-radius:28px;text-decoration:none;transition:all 0.3s;opacity:0;animation:fadeUp 1s ease 0.65s forwards;}
 .hero-btn:hover{background:#fff;transform:translateY(-1px);}
-
 @media(max-width:768px){
   .hphone-frame{width:95vw;border-radius:20px;padding:5px;}
   .hphone-screen{border-radius:16px;}
   .hphone-notch{width:18px;height:50px;border-radius:0 8px 8px 0;}
 }
 
-/* BRAND TICKER */
-.ticker{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:28px 0;overflow:hidden;white-space:nowrap;}
-.ticker-track{display:inline-flex;animation:tickerScroll 30s linear infinite;}
-.ticker-track span{
-  font-size:13px;font-weight:500;letter-spacing:3px;text-transform:uppercase;
-  color:var(--text-faint);padding:0 32px;flex-shrink:0;
-}
-.ticker-track span::after{content:"\2022";margin-left:32px;color:var(--green-mid);opacity:0.3;}
+/* LOGO TICKER */
+.ticker{background:#f0f0f0;padding:24px 0;overflow:hidden;}
+.ticker-track{display:inline-flex;align-items:center;animation:tickerScroll 40s linear infinite;}
+.ticker-track img{height:32px;margin:0 40px;opacity:0.7;filter:grayscale(100%);transition:all 0.3s;flex-shrink:0;}
+.ticker-track img:hover{opacity:1;filter:grayscale(0%);}
 @keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
-/* WORK SECTION */
-.work{padding:100px 0;position:relative;}
+/* WORK */
+section{position:relative;z-index:1;}
+.work{padding:100px 0;}
 .work-header{margin-bottom:56px;}
 .work-header .section-tag{font-size:12px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px;}
 .work-header h2{font-size:clamp(28px,4vw,48px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:12px;}
 .work-header h2 em{color:var(--green-bright);font-style:normal;}
 .work-header p{font-size:16px;font-weight:300;color:var(--text-secondary);max-width:480px;}
 
-/* PHONE CAROUSEL */
+/* PHONE CAROUSEL - AUTO SCROLL */
 .phone-carousel{position:relative;overflow:hidden;padding:20px 0;}
-.phone-track{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 40px 20px;scrollbar-width:none;}
-.phone-track::-webkit-scrollbar{display:none;}
-.phone-slide{flex:0 0 auto;scroll-snap-align:center;text-align:center;}
+.phone-track{display:flex;gap:28px;animation:phoneScroll 30s linear infinite;width:max-content;}
+.phone-track:hover{animation-play-state:paused;}
+.phone-slide{flex:0 0 auto;text-align:center;}
 .phone-slide .pf{
-  width:200px;height:420px;
-  background:#111;border-radius:32px;
-  border:3px solid #2a2a2a;
-  padding:12px 10px;position:relative;overflow:hidden;
+  width:200px;height:420px;background:#111;border-radius:32px;
+  border:3px solid #2a2a2a;padding:12px 10px;position:relative;overflow:hidden;
   box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.04);
 }
 .phone-slide .pf-notch{width:80px;height:24px;background:#111;border-radius:0 0 16px 16px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;}
@@ -124,18 +118,12 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 }
 .phone-slide .ps-title{font-size:14px;font-weight:600;color:var(--text-primary);margin-top:16px;}
 .phone-slide .ps-meta{font-size:11px;font-weight:400;color:var(--text-secondary);margin-top:4px;}
-.carousel-nav{display:flex;justify-content:center;gap:12px;margin-top:32px;}
-.carousel-nav button{
-  width:40px;height:40px;border-radius:50%;border:1px solid var(--rule);
-  background:transparent;color:var(--text-secondary);font-size:18px;
-  cursor:pointer;transition:all 0.3s;font-family:var(--font);display:flex;align-items:center;justify-content:center;
-}
-.carousel-nav button:hover{border-color:var(--green-bright);color:var(--green-bright);}
+@keyframes phoneScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 @media(max-width:600px){
   .phone-slide .pf{width:160px;height:340px;border-radius:26px;}
   .phone-slide .pf-notch{width:64px;height:20px;}
   .phone-slide .pf-screen{border-radius:18px;}
-  .phone-track{gap:16px;padding:0 20px 16px;}
+  .phone-track{gap:16px;}
 }
 
 /* FOUNDERS */
@@ -157,6 +145,15 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 .founder-expand{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--green-mid);}
 .founder-card.expanded .founder-expand{display:none;}
 
+/* CTA */
+.cta-section{border-top:1px solid var(--rule);text-align:center;padding:120px 0;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(90,152,112,0.06),transparent);pointer-events:none;}
+.section-heading{font-size:clamp(28px,3.8vw,44px);font-weight:600;line-height:1.15;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:16px;}
+.section-heading em{color:var(--green-bright);font-style:normal;}
+.section-body{font-size:16px;font-weight:300;line-height:1.75;color:var(--text-secondary);max-width:520px;}
+.cta-btn{display:inline-block;font-size:15px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:16px 48px;border-radius:32px;text-decoration:none;transition:all 0.3s;}
+.cta-btn:hover{background:#fff;transform:translateY(-1px);}
+
 /* ALSO */
 .also{border-top:1px solid var(--rule);text-align:center;padding:80px 0;}
 .also-heading{font-size:18px;font-weight:500;color:var(--text-primary);margin-bottom:8px;}
@@ -164,15 +161,6 @@ nav.scrolled{background:rgba(6,14,8,0.92);backdrop-filter:blur(20px);-webkit-bac
 .also-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
 .also-link{font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--green-bright);border:1px solid var(--green-mid);padding:10px 28px;border-radius:24px;text-decoration:none;transition:all 0.3s;}
 .also-link:hover{background:var(--green-bright);color:var(--bg);}
-
-/* CTA */
-.cta-section{border-top:1px solid var(--rule);text-align:center;padding:120px 0;position:relative;overflow:hidden;}
-.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(90,152,112,0.06),transparent);pointer-events:none;}
-.cta-btn{display:inline-block;font-size:15px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:16px 48px;border-radius:32px;text-decoration:none;transition:all 0.3s;}
-.cta-btn:hover{background:#fff;transform:translateY(-1px);}
-.section-heading{font-size:clamp(28px,3.8vw,44px);font-weight:600;line-height:1.15;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:16px;}
-.section-heading em{color:var(--green-bright);font-style:normal;}
-.section-body{font-size:16px;font-weight:300;line-height:1.75;color:var(--text-secondary);max-width:520px;}
 
 footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-content:space-between;align-items:center;}
 @media(max-width:768px){footer{flex-direction:column;gap:12px;text-align:center;}}
@@ -187,6 +175,9 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
 </head>
 <body>
 
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
+
 <svg style="display:none;">
   <defs>
     <symbol id="arc-icon" viewBox="0 0 90 72">
@@ -194,9 +185,6 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
       <path d="M16 66 Q45 18 74 66" stroke="url(#gS)" stroke-width="1" fill="none" stroke-linecap="round"/>
       <circle cx="45" cy="6.5" r="3.5" fill="url(#aG)"/>
       <line x1="4" y1="66" x2="86" y2="66" stroke="rgba(160,200,170,0.12)" stroke-width="0.75"/>
-      <line x1="4" y1="62" x2="4" y2="70" stroke="url(#gM)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-      <line x1="86" y1="62" x2="86" y2="70" stroke="url(#gM)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-      <line x1="45" y1="64" x2="45" y2="68" stroke="rgba(160,200,170,0.3)" stroke-width="1" stroke-linecap="round"/>
       <linearGradient id="gM" x1="4" y1="66" x2="86" y2="66" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stop-color="#4a9060" stop-opacity="0.4"/>
         <stop offset="50%" stop-color="#a8d8b0"/>
@@ -215,7 +203,6 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
   </defs>
 </svg>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
     <svg width="32" height="26"><use href="#arc-icon"/></svg>
@@ -228,39 +215,8 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <!-- Layer 1: Horizontal phone behind -->
   <div class="hero-phone-bg">
-    <!-- Left hand -->
-    <svg class="hand-svg hand-left" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="skinL" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#c4956a"/>
-          <stop offset="100%" stop-color="#a67b5b"/>
-        </linearGradient>
-        <linearGradient id="skinDL" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#b8895e"/>
-          <stop offset="100%" stop-color="#a67b5b"/>
-        </linearGradient>
-      </defs>
-      <!-- Wrist/palm coming from bottom-left -->
-      <path d="M30 200 C30 200 25 160 30 130 C35 100 40 90 45 80 L75 80 C75 90 78 100 80 130 C82 160 80 200 80 200Z" fill="url(#skinL)"/>
-      <!-- Thumb wrapping over top -->
-      <path d="M45 80 C42 70 38 58 40 48 C42 38 50 34 56 36 C62 38 60 48 58 58 C56 68 55 75 55 80Z" fill="url(#skinDL)"/>
-      <!-- Index finger -->
-      <path d="M55 80 C54 70 52 55 50 42 C48 32 52 26 58 26 C64 26 66 32 65 42 C64 55 62 70 61 80Z" fill="url(#skinL)"/>
-      <!-- Middle finger -->
-      <path d="M61 80 C60 68 58 50 57 36 C56 24 60 18 66 18 C72 18 75 24 74 36 C73 50 71 68 70 80Z" fill="url(#skinDL)"/>
-      <!-- Ring finger -->
-      <path d="M70 80 C69 70 68 55 67 42 C66 32 69 26 74 26 C79 26 82 32 81 42 C80 55 78 70 77 80Z" fill="url(#skinL)"/>
-      <!-- Pinky -->
-      <path d="M77 80 C76 72 76 60 75 50 C74 42 77 36 81 37 C85 38 87 44 86 52 C85 62 84 72 83 80Z" fill="url(#skinDL)"/>
-      <!-- Knuckle lines -->
-      <path d="M48 60 Q52 58 56 60" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" fill="none"/>
-      <path d="M58 56 Q62 54 66 56" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" fill="none"/>
-      <path d="M68 58 Q72 56 76 58" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" fill="none"/>
-    </svg>
     <div class="hphone-frame">
       <div class="hphone-notch"></div>
       <div class="hphone-screen">
@@ -269,37 +225,7 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
         </video>
       </div>
     </div>
-    <!-- Right hand -->
-    <svg class="hand-svg hand-right" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="skinR" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#c4956a"/>
-          <stop offset="100%" stop-color="#a67b5b"/>
-        </linearGradient>
-        <linearGradient id="skinDR" x1="100%" y1="0%" x2="0%" y2="0%">
-          <stop offset="0%" stop-color="#b8895e"/>
-          <stop offset="100%" stop-color="#a67b5b"/>
-        </linearGradient>
-      </defs>
-      <!-- Palm -->
-      <path d="M90 200 C90 200 95 160 90 130 C85 100 80 90 75 80 L45 80 C45 90 42 100 40 130 C38 160 40 200 40 200Z" fill="url(#skinR)"/>
-      <!-- Thumb -->
-      <path d="M75 80 C78 70 82 58 80 48 C78 38 70 34 64 36 C58 38 60 48 62 58 C64 68 65 75 65 80Z" fill="url(#skinDR)"/>
-      <!-- Index -->
-      <path d="M65 80 C66 70 68 55 70 42 C72 32 68 26 62 26 C56 26 54 32 55 42 C56 55 58 70 59 80Z" fill="url(#skinR)"/>
-      <!-- Middle -->
-      <path d="M59 80 C60 68 62 50 63 36 C64 24 60 18 54 18 C48 18 45 24 46 36 C47 50 49 68 50 80Z" fill="url(#skinDR)"/>
-      <!-- Ring -->
-      <path d="M50 80 C51 70 52 55 53 42 C54 32 51 26 46 26 C41 26 38 32 39 42 C40 55 42 70 43 80Z" fill="url(#skinR)"/>
-      <!-- Pinky -->
-      <path d="M43 80 C44 72 44 60 45 50 C46 42 43 36 39 37 C35 38 33 44 34 52 C35 62 36 72 37 80Z" fill="url(#skinDR)"/>
-      <!-- Knuckle lines -->
-      <path d="M72 60 Q68 58 64 60" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" fill="none"/>
-      <path d="M62 56 Q58 54 54 56" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" fill="none"/>
-      <path d="M52 58 Q48 56 44 58" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" fill="none"/>
-    </svg>
   </div>
-  <!-- Layer 2: Text in front -->
   <div class="hero-text">
     <div class="hero-arc"><svg width="80" height="64"><use href="#arc-icon"/></svg></div>
     <h1>We make <em>videos.</em></h1>
@@ -308,15 +234,13 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
   </div>
 </section>
 
-<!-- BRAND TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span>Red Bull F1</span><span>NASCAR</span><span>Formula E</span><span>EA Sports</span><span>Revolution Race</span><span>Revolut</span><span>Air Up</span><span>Husqvarna</span><span>MM Sports</span><span>Delicato</span><span>Cloetta</span>
-    <span>Red Bull F1</span><span>NASCAR</span><span>Formula E</span><span>EA Sports</span><span>Revolution Race</span><span>Revolut</span><span>Air Up</span><span>Husqvarna</span><span>MM Sports</span><span>Delicato</span><span>Cloetta</span>
+    <img src="logo-husqvarna.png" alt="Husqvarna"><img src="logo-nascar.png" alt="NASCAR"><img src="logo-wrc.png" alt="WRC"><img src="logo-motogp.png" alt="MotoGP"><img src="logo-redbull.png" alt="Red Bull"><img src="logo-cloetta.png" alt="Cloetta"><img src="logo-rvrc.png" alt="Revolution Race"><img src="logo-anyfin.png" alt="Anyfin"><img src="logo-propud.png" alt="ProPud"><img src="logo-delicato.png" alt="Delicato"><img src="logo-fontainebleau.png" alt="Fontainebleau"><img src="logo-indycar.png" alt="IndyCar">
+    <img src="logo-husqvarna.png" alt="Husqvarna"><img src="logo-nascar.png" alt="NASCAR"><img src="logo-wrc.png" alt="WRC"><img src="logo-motogp.png" alt="MotoGP"><img src="logo-redbull.png" alt="Red Bull"><img src="logo-cloetta.png" alt="Cloetta"><img src="logo-rvrc.png" alt="Revolution Race"><img src="logo-anyfin.png" alt="Anyfin"><img src="logo-propud.png" alt="ProPud"><img src="logo-delicato.png" alt="Delicato"><img src="logo-fontainebleau.png" alt="Fontainebleau"><img src="logo-indycar.png" alt="IndyCar">
   </div>
 </div>
 
-<!-- WORK -->
 <section class="work" id="work">
   <div class="container">
     <div class="work-header reveal">
@@ -324,60 +248,25 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
       <h2>A glimpse at what <em>we do</em></h2>
       <p>We live and breathe content. Social-first storytelling is at the core of everything we create.</p>
     </div>
-    <div class="phone-carousel">
-      <div class="phone-track" id="phoneTrack">
-        <div class="phone-slide">
-          <div class="pf"><div class="pf-notch"></div><div class="pf-screen">
-            <video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip1.mp4" type="video/mp4"></video>
-          </div></div>
-          <p class="ps-title">Project Title</p>
-          <p class="ps-meta">Sports</p>
-        </div>
-        <div class="phone-slide">
-          <div class="pf"><div class="pf-notch"></div><div class="pf-screen">
-            <video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip2.mp4" type="video/mp4"></video>
-          </div></div>
-          <p class="ps-title">Project Title</p>
-          <p class="ps-meta">FMCG</p>
-        </div>
-        <div class="phone-slide">
-          <div class="pf"><div class="pf-notch"></div><div class="pf-screen">
-            <video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip3.mp4" type="video/mp4"></video>
-          </div></div>
-          <p class="ps-title">Project Title</p>
-          <p class="ps-meta">Tech</p>
-        </div>
-        <div class="phone-slide">
-          <div class="pf"><div class="pf-notch"></div><div class="pf-screen">
-            <div class="pf-placeholder">Your clip here</div>
-          </div></div>
-          <p class="ps-title">Project Title</p>
-          <p class="ps-meta">Category</p>
-        </div>
-        <div class="phone-slide">
-          <div class="pf"><div class="pf-notch"></div><div class="pf-screen">
-            <div class="pf-placeholder">Your clip here</div>
-          </div></div>
-          <p class="ps-title">Project Title</p>
-          <p class="ps-meta">Category</p>
-        </div>
-        <div class="phone-slide">
-          <div class="pf"><div class="pf-notch"></div><div class="pf-screen">
-            <div class="pf-placeholder">Your clip here</div>
-          </div></div>
-          <p class="ps-title">Project Title</p>
-          <p class="ps-meta">Category</p>
-        </div>
-      </div>
-      <div class="carousel-nav">
-        <button onclick="document.getElementById('phoneTrack').scrollBy({left:-240,behavior:'smooth'})">&larr;</button>
-        <button onclick="document.getElementById('phoneTrack').scrollBy({left:240,behavior:'smooth'})">&rarr;</button>
-      </div>
+  </div>
+  <div class="phone-carousel">
+    <div class="phone-track" id="phoneTrack">
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip1.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Sports</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip2.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">FMCG</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip3.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Tech</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip4.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip5.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip6.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip1.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Sports</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip2.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">FMCG</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip3.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Tech</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip4.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip5.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
+      <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip6.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
     </div>
   </div>
 </section>
 
-<!-- FOUNDERS -->
 <section class="founders" id="founders">
   <div class="container">
     <div class="founders-intro reveal">
@@ -407,19 +296,6 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
   </div>
 </section>
 
-<!-- ALSO -->
-<section class="also">
-  <div class="container reveal">
-    <p class="also-heading">We also build digital products.</p>
-    <p class="also-sub">Need a website or an app? We do that too.</p>
-    <div class="also-links">
-      <a href="web-design.html" class="also-link">Web Design &rarr;</a>
-      <a href="app-development.html" class="also-link">App Development &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="container">
     <div class="reveal">
@@ -427,6 +303,17 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
       <h2 class="section-heading">Work <em>with us</em></h2>
       <p class="section-body" style="margin:0 auto 40px;text-align:center;">Tell us about your brand. We'll take it from there.</p>
       <a href="mailto:hello@arcmedia.se" class="cta-btn">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<section class="also">
+  <div class="container reveal">
+    <p class="also-heading">We also build digital products.</p>
+    <p class="also-sub">Need a website or an app? We do that too.</p>
+    <div class="also-links">
+      <a href="web-design.html" class="also-link">Web Design &rarr;</a>
+      <a href="app-development.html" class="also-link">App Development &rarr;</a>
     </div>
   </div>
 </section>
@@ -440,8 +327,11 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
 </footer>
 
 <script>
+// Nav scroll
 const nav=document.getElementById("nav");
 window.addEventListener("scroll",()=>{nav.classList.toggle("scrolled",window.scrollY>60);});
+
+// Reveals
 const reveals=document.querySelectorAll(".reveal");
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible");});
@@ -451,8 +341,7 @@ reveals.forEach(el=>observer.observe(el));
 // Force video autoplay
 function forcePlay(){
   document.querySelectorAll("video").forEach(v=>{
-    v.muted=true;v.defaultMuted=true;
-    v.setAttribute("muted","");
+    v.muted=true;v.defaultMuted=true;v.setAttribute("muted","");
     v.play().catch(()=>{
       ["click","scroll","touchstart","mousemove"].forEach(evt=>{
         document.addEventListener(evt,()=>{v.muted=true;v.play().catch(()=>{});},{once:true});
@@ -468,6 +357,22 @@ const vidObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.muted=true;e.target.play().catch(()=>{});}});
 },{threshold:0.1});
 document.querySelectorAll("video").forEach(v=>vidObs.observe(v));
+
+// Floating particles
+(function(){
+  const container=document.getElementById("particles");
+  const count=25;
+  for(let i=0;i<count;i++){
+    const p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"%";
+    p.style.top=(80+Math.random()*40)+"%";
+    p.style.width=p.style.height=(2+Math.random()*4)+"px";
+    p.style.animationDuration=(8+Math.random()*16)+"s";
+    p.style.animationDelay=(Math.random()*10)+"s";
+    container.appendChild(p);
+  }
+})();
 </script>
 </body>
 </html>
