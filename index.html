@@ -98,10 +98,11 @@ section{position:relative;z-index:1;}
 .work-header h2 em{color:var(--green-bright);font-style:normal;}
 .work-header p{font-size:16px;font-weight:300;color:var(--text-secondary);max-width:480px;}
 
-/* PHONE CAROUSEL - AUTO SCROLL */
+/* PHONE CAROUSEL - CENTERED, NARROWER */
 .phone-carousel{position:relative;overflow:hidden;padding:20px 0;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0%,black 20%,black 80%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0%,black 20%,black 80%,transparent 100%);
+  max-width:800px;margin:0 auto;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,black 25%,black 75%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,black 25%,black 75%,transparent 100%);
 }
 .phone-track{display:flex;gap:28px;animation:phoneScroll 40s linear infinite;width:max-content;}
 .phone-track:hover{animation-play-state:paused;}
@@ -127,6 +128,7 @@ section{position:relative;z-index:1;}
   .phone-slide .pf-notch{width:64px;height:20px;}
   .phone-slide .pf-screen{border-radius:18px;}
   .phone-track{gap:16px;}
+  .phone-carousel{max-width:100%;}
 }
 
 /* FOUNDERS */
@@ -137,16 +139,30 @@ section{position:relative;z-index:1;}
 .founders-intro h2 em{color:var(--green-bright);font-style:normal;}
 .founders-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
 @media(max-width:768px){.founders-grid{grid-template-columns:1fr;}}
-.founder-card{position:relative;overflow:hidden;cursor:pointer;border-radius:12px;}
-.founder-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:brightness(0.85) saturate(0.9);transition:all 0.6s;}
-.founder-card:hover .founder-img{filter:brightness(0.95) saturate(1);transform:scale(1.02);}
+
+/* FOUNDER CARD - FLIP */
+.founder-card{position:relative;perspective:1000px;cursor:pointer;border-radius:12px;height:0;padding-bottom:133.33%;/* 3:4 aspect */}
+.founder-card-inner{position:absolute;inset:0;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d;}
+.founder-card.flipped .founder-card-inner{transform:rotateY(180deg);}
+.founder-front,.founder-back{position:absolute;inset:0;border-radius:12px;overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden;}
+.founder-back{transform:rotateY(180deg);background:var(--bg-card);border:1px solid var(--rule);display:flex;flex-direction:column;}
+.founder-img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85) saturate(0.9);transition:all 0.6s;}
+.founder-card:hover .founder-img{filter:brightness(0.95) saturate(1);}
 .founder-overlay{position:absolute;bottom:0;left:0;right:0;padding:36px 28px;background:linear-gradient(0deg,rgba(6,14,8,0.95) 0%,rgba(6,14,8,0.7) 55%,transparent);}
 .founder-name{font-size:18px;font-weight:600;letter-spacing:0.5px;color:var(--text-primary);margin-bottom:2px;}
 .founder-role{font-size:12px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--text-secondary);margin-bottom:10px;}
-.founder-bio{font-size:14px;font-weight:300;line-height:1.7;color:var(--text-secondary);max-height:0;overflow:hidden;transition:max-height 0.6s ease,margin 0.4s ease;}
-.founder-card.expanded .founder-bio{max-height:300px;margin-top:8px;}
 .founder-expand{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--green-mid);}
-.founder-card.expanded .founder-expand{display:none;}
+
+/* BACK OF CARD */
+.back-images{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:16px 16px 0;}
+.back-img-slot{aspect-ratio:1;background:rgba(255,255,255,0.05);border:1px dashed rgba(160,200,170,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.back-img-slot img{width:100%;height:100%;object-fit:cover;}
+.back-img-slot span{font-size:10px;color:var(--text-faint);letter-spacing:1px;text-transform:uppercase;}
+.back-content{padding:16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;}
+.back-content .founder-name{font-size:16px;margin-bottom:4px;}
+.back-content .founder-role{margin-bottom:8px;}
+.back-bio{font-size:13px;font-weight:300;line-height:1.6;color:var(--text-secondary);flex:1;}
+.back-close{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--green-mid);text-align:center;padding:12px 0;cursor:pointer;}
 
 /* CTA */
 .cta-section{border-top:1px solid var(--rule);text-align:center;padding:120px 0;position:relative;overflow:hidden;}
@@ -154,8 +170,33 @@ section{position:relative;z-index:1;}
 .section-heading{font-size:clamp(28px,3.8vw,44px);font-weight:600;line-height:1.15;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:16px;}
 .section-heading em{color:var(--green-bright);font-style:normal;}
 .section-body{font-size:16px;font-weight:300;line-height:1.75;color:var(--text-secondary);max-width:520px;}
-.cta-btn{display:inline-block;font-size:15px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:16px 48px;border-radius:32px;text-decoration:none;transition:all 0.3s;}
+.cta-btn{display:inline-block;font-size:15px;font-weight:500;color:var(--bg);background:var(--green-bright);padding:16px 48px;border-radius:32px;text-decoration:none;transition:all 0.3s;cursor:pointer;border:none;}
 .cta-btn:hover{background:#fff;transform:translateY(-1px);}
+
+/* CONTACT FORM */
+.contact-form{max-width:520px;margin:0 auto;text-align:left;display:none;padding-top:32px;}
+.contact-form.active{display:block;animation:fadeUp 0.5s ease forwards;}
+.form-group{margin-bottom:20px;}
+.form-group label{display:block;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px;}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:12px 16px;background:rgba(255,255,255,0.05);
+  border:1px solid var(--rule);border-radius:10px;
+  font-family:var(--font);font-size:14px;font-weight:300;
+  color:var(--text-primary);transition:border-color 0.3s;outline:none;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green-mid);}
+.form-group select{-webkit-appearance:none;appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a9870' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;
+}
+.form-group select option{background:var(--bg);color:var(--text-primary);}
+.form-group textarea{resize:vertical;min-height:100px;}
+.form-submit{
+  display:inline-block;font-size:14px;font-weight:500;color:var(--bg);
+  background:var(--green-bright);padding:14px 40px;border-radius:28px;
+  border:none;cursor:pointer;transition:all 0.3s;font-family:var(--font);
+}
+.form-submit:hover{background:#fff;transform:translateY(-1px);}
 
 /* ALSO */
 .also{border-top:1px solid var(--rule);text-align:center;padding:80px 0;}
@@ -237,10 +278,11 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
   </div>
 </section>
 
+<!-- LOGO TICKER — removed WRC, NASCAR and RVRC will need dark versions -->
 <div class="ticker">
   <div class="ticker-track">
-    <img src="logo-husqvarna.png" alt="Husqvarna"><img src="logo-nascar.png" alt="NASCAR"><img src="logo-wrc.png" alt="WRC"><img src="logo-motogp.png" alt="MotoGP"><img src="logo-redbull.png" alt="Red Bull"><img src="logo-cloetta.png" alt="Cloetta"><img src="logo-rvrc.png" alt="Revolution Race"><img src="logo-anyfin.png" alt="Anyfin"><img src="logo-propud.png" alt="ProPud"><img src="logo-delicato.png" alt="Delicato"><img src="logo-fontainebleau.png" alt="Fontainebleau"><img src="logo-indycar.png" alt="IndyCar">
-    <img src="logo-husqvarna.png" alt="Husqvarna"><img src="logo-nascar.png" alt="NASCAR"><img src="logo-wrc.png" alt="WRC"><img src="logo-motogp.png" alt="MotoGP"><img src="logo-redbull.png" alt="Red Bull"><img src="logo-cloetta.png" alt="Cloetta"><img src="logo-rvrc.png" alt="Revolution Race"><img src="logo-anyfin.png" alt="Anyfin"><img src="logo-propud.png" alt="ProPud"><img src="logo-delicato.png" alt="Delicato"><img src="logo-fontainebleau.png" alt="Fontainebleau"><img src="logo-indycar.png" alt="IndyCar">
+    <img src="logo-husqvarna.png" alt="Husqvarna"><img src="logo-nascar.png" alt="NASCAR"><img src="logo-motogp.png" alt="MotoGP"><img src="logo-redbull.png" alt="Red Bull"><img src="logo-cloetta.png" alt="Cloetta"><img src="logo-rvrc.png" alt="Revolution Race"><img src="logo-anyfin.png" alt="Anyfin"><img src="logo-propud.png" alt="ProPud"><img src="logo-delicato.png" alt="Delicato"><img src="logo-fontainebleau.png" alt="Fontainebleau"><img src="logo-indycar.png" alt="IndyCar">
+    <img src="logo-husqvarna.png" alt="Husqvarna"><img src="logo-nascar.png" alt="NASCAR"><img src="logo-motogp.png" alt="MotoGP"><img src="logo-redbull.png" alt="Red Bull"><img src="logo-cloetta.png" alt="Cloetta"><img src="logo-rvrc.png" alt="Revolution Race"><img src="logo-anyfin.png" alt="Anyfin"><img src="logo-propud.png" alt="ProPud"><img src="logo-delicato.png" alt="Delicato"><img src="logo-fontainebleau.png" alt="Fontainebleau"><img src="logo-indycar.png" alt="IndyCar">
   </div>
 </div>
 
@@ -260,6 +302,7 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
       <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip4.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
       <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip5.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
       <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><div class="pf-placeholder">clip6.mp4</div></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Category</p></div>
+      <!-- Duplicate for seamless loop -->
       <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip1.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Sports</p></div>
       <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip2.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">FMCG</p></div>
       <div class="phone-slide"><div class="pf"><div class="pf-notch"></div><div class="pf-screen"><video autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="clip3.mp4" type="video/mp4"></video></div></div><p class="ps-title">Project Title</p><p class="ps-meta">Tech</p></div>
@@ -270,6 +313,7 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
   </div>
 </section>
 
+<!-- FOUNDERS — FLIP CARDS -->
 <section class="founders" id="founders">
   <div class="container">
     <div class="founders-intro reveal">
@@ -277,35 +321,139 @@ footer{border-top:1px solid var(--rule);padding:40px;display:flex;justify-conten
       <h2>Created by <em>creators.</em></h2>
     </div>
     <div class="founders-grid">
-      <div class="founder-card reveal" onclick="this.classList.toggle('expanded')">
-        <img src="liam.jpg" alt="Liam Kalevi" class="founder-img">
-        <div class="founder-overlay">
-          <p class="founder-name">Liam Kalevi</p>
-          <p class="founder-role">Co-Founder</p>
-          <p class="founder-expand">&darr; Read more</p>
-          <p class="founder-bio">Six years in content. Interviewed the biggest names in Formula 1. Worked with Red Bull, NASCAR, and WRC. Knows how to make complex, high-tech industries feel accessible to new audiences.</p>
+      <div class="founder-card reveal" id="card-liam">
+        <div class="founder-card-inner">
+          <div class="founder-front">
+            <img src="liam.jpg" alt="Liam Kalevi" class="founder-img">
+            <div class="founder-overlay">
+              <p class="founder-name">Liam Kalevi</p>
+              <p class="founder-role">Co-Founder</p>
+              <p class="founder-expand">&darr; Read more</p>
+            </div>
+          </div>
+          <div class="founder-back">
+            <div class="back-images">
+              <div class="back-img-slot"><span>Image 1</span></div>
+              <div class="back-img-slot"><span>Image 2</span></div>
+              <div class="back-img-slot"><span>Image 3</span></div>
+            </div>
+            <div class="back-content">
+              <div>
+                <p class="founder-name">Liam Kalevi</p>
+                <p class="founder-role">Co-Founder</p>
+              </div>
+              <p class="back-bio">Six years in content. Interviewed the biggest names in Formula 1. Worked with Red Bull, NASCAR, and WRC. Knows how to make complex, high-tech industries feel accessible to new audiences.</p>
+              <div class="back-close" onclick="event.stopPropagation();document.getElementById('card-liam').classList.remove('flipped');">&uarr; Flip back</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="founder-card reveal" style="transition-delay:0.15s;" onclick="this.classList.toggle('expanded')">
-        <img src="rezdar.jpg" alt="Rezdar Bakri" class="founder-img">
-        <div class="founder-overlay">
-          <p class="founder-name">Rezdar Bakri</p>
-          <p class="founder-role">Co-Founder</p>
-          <p class="founder-expand">&darr; Read more</p>
-          <p class="founder-bio">Has shot content across the globe &mdash; Papua New Guinea, Iraq, Uganda, the Amazon. Worked with brands across industries including fitness. Cinematic eye, zero limits on location.</p>
+      <div class="founder-card reveal" id="card-rezdar" style="transition-delay:0.15s;">
+        <div class="founder-card-inner">
+          <div class="founder-front">
+            <img src="rezdar.jpg" alt="Rezdar Bakri" class="founder-img">
+            <div class="founder-overlay">
+              <p class="founder-name">Rezdar Bakri</p>
+              <p class="founder-role">Co-Founder</p>
+              <p class="founder-expand">&darr; Read more</p>
+            </div>
+          </div>
+          <div class="founder-back">
+            <div class="back-images">
+              <div class="back-img-slot"><span>Image 1</span></div>
+              <div class="back-img-slot"><span>Image 2</span></div>
+              <div class="back-img-slot"><span>Image 3</span></div>
+            </div>
+            <div class="back-content">
+              <div>
+                <p class="founder-name">Rezdar Bakri</p>
+                <p class="founder-role">Co-Founder</p>
+              </div>
+              <p class="back-bio">Has shot content across the globe &mdash; Papua New Guinea, Iraq, Uganda, the Amazon. Worked with brands across industries including fitness. Cinematic eye, zero limits on location.</p>
+              <div class="back-close" onclick="event.stopPropagation();document.getElementById('card-rezdar').classList.remove('flipped');">&uarr; Flip back</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- CTA WITH CONTACT FORM -->
 <section class="cta-section" id="contact">
   <div class="container">
     <div class="reveal">
       <div style="margin-bottom:28px;"><svg width="56" height="46"><use href="#arc-icon"/></svg></div>
       <h2 class="section-heading">Work <em>with us</em></h2>
       <p class="section-body" style="margin:0 auto 40px;text-align:center;">Tell us about your brand. We'll take it from there.</p>
-      <a href="mailto:hello@arcmedia.se" class="cta-btn">Get in Touch</a>
+      <button class="cta-btn" id="ctaToggle" onclick="toggleForm()">Get in Touch</button>
+
+      <div class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label>Your Email</label>
+          <input type="email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Our Email</label>
+          <input type="email" value="hello@arcmedia.se" readonly style="opacity:0.6;cursor:default;">
+        </div>
+        <div class="form-group">
+          <label>What's your industry?</label>
+          <select>
+            <option value="" disabled selected>Select your industry</option>
+            <option>Sports & Entertainment</option>
+            <option>FMCG / Consumer Goods</option>
+            <option>Tech / SaaS</option>
+            <option>Finance / Fintech</option>
+            <option>Fashion / Lifestyle</option>
+            <option>Automotive</option>
+            <option>Food & Beverage</option>
+            <option>Real Estate</option>
+            <option>Healthcare</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>What's your turnover?</label>
+          <select>
+            <option value="" disabled selected>Select range</option>
+            <option>Under 1M SEK</option>
+            <option>1M – 10M SEK</option>
+            <option>10M – 50M SEK</option>
+            <option>50M – 200M SEK</option>
+            <option>200M+ SEK</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>What's your monthly marketing budget?</label>
+          <select>
+            <option value="" disabled selected>Select range</option>
+            <option>50,000 – 75,000 SEK</option>
+            <option>75,000 – 150,000 SEK</option>
+            <option>150,000 – 300,000 SEK</option>
+            <option>300,000+ SEK</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>What's your main goal with content?</label>
+          <select>
+            <option value="" disabled selected>Select your goal</option>
+            <option>Brand awareness</option>
+            <option>Sales / Conversions</option>
+            <option>Brand lift / Repositioning</option>
+            <option>Community building</option>
+            <option>Employer branding</option>
+            <option>I don't know yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your project</label>
+          <textarea placeholder="Describe what you're looking for..."></textarea>
+        </div>
+        <div style="text-align:center;">
+          <button class="form-submit" onclick="submitForm()">Send Inquiry</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -376,6 +524,34 @@ document.querySelectorAll("video").forEach(v=>vidObs.observe(v));
     container.appendChild(p);
   }
 })();
+
+// Founder card flip
+document.querySelectorAll(".founder-card").forEach(card=>{
+  card.addEventListener("click",function(){
+    this.classList.toggle("flipped");
+  });
+});
+
+// Contact form toggle
+function toggleForm(){
+  const form=document.getElementById("contactForm");
+  const btn=document.getElementById("ctaToggle");
+  if(form.classList.contains("active")){
+    form.classList.remove("active");
+    form.style.display="none";
+    btn.textContent="Get in Touch";
+  }else{
+    form.classList.add("active");
+    form.style.display="block";
+    btn.textContent="Close Form";
+    setTimeout(()=>{form.scrollIntoView({behavior:"smooth",block:"center"});},100);
+  }
+}
+
+// Form submit placeholder
+function submitForm(){
+  alert("Thanks for your inquiry! We'll get back to you soon.");
+}
 </script>
 </body>
 </html>
